@@ -1,0 +1,81 @@
+package com.example.firdaychallenge.Main;
+
+
+import com.example.firdaychallenge.Classes.Department;
+import com.example.firdaychallenge.Classes.Employee;
+import com.example.firdaychallenge.Repo.DepartmentRepo;
+import com.example.firdaychallenge.Repo.EmployeeRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MainController {
+
+
+    @Autowired
+    EmployeeRepo employeeRepo;
+
+    @Autowired
+    DepartmentRepo departmentRepo;
+
+
+    @RequestMapping("/")
+    public String homePage(){
+
+
+        return "homepage";
+    }
+
+    @RequestMapping("/addEmployee")
+    public String addEmployee(Model model){
+
+        model.addAttribute("employee" ,new Employee());
+        model.addAttribute("department", departmentRepo.findAll() );
+        return "employeeform";
+
+
+    }
+
+    @PostMapping("/processemployee")
+    public String saveEmployee(@ModelAttribute("employee") Employee employee, BindingResult result){
+
+        if(result.hasErrors()){
+            return "emloyeeform";
+        }
+        employeeRepo.save(employee);
+
+        return "homepage";
+    }
+
+    @RequestMapping("/addDepartment")
+    public String addDepartment(Model model){
+
+        model.addAttribute("department", new Department());
+
+
+        return "departmentform";
+    }
+
+    @PostMapping("/processdepartment")
+    public String saveDepartment(@ModelAttribute("employee") Department department, BindingResult result){
+
+        if(result.hasErrors()){
+            return "departmentform";
+        }
+        departmentRepo.save(department);
+
+        return "homepage";
+    }
+
+    @RequestMapping("/departments")
+    public String showDepartments(Model model){
+        model.addAttribute("departments", departmentRepo.findAll());
+
+        return "listdepartments";
+    }
+}

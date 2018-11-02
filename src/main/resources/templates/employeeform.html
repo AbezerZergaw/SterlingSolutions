@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+</head>
+<body>
+<h1>
+    Sterling Solutions: Employee Database
+</h1>
+<div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/employees">All Employees</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/departments">All Departments</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/addEmployee">Add Employees</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/addDepartment">Add Department</a>
+        </li>
+    </ul>
+</div>
+
+
+
+<div class="container">
+
+    <h2>Add New Employee</h2>
+
+    <form   action="/processemployee" th:object="${employee}"
+          method="post">
+
+      Name:  <input type="text" th:field="*{empname}"><br>
+        <span th:if="${#fields.hasErrors('empname')}"
+              th:errors="*{empname}"></span>
+
+        Job Title:  <input type="text" th:field="*{jobtitle}"><br>
+        <span th:if="${#fields.hasErrors('jobtitle')}"
+              th:errors="*{jobtitle}"></span>
+
+        Department   <select th:field="*{department}">
+
+        <option value="">Select Department</option>
+        <option value="1">Computer Science</option>
+        <option value="2">Fine Arts</option>
+        <option value="3">Mathematics</option>
+        <option value="9">Java</option>
+        <option th:value="${department.id}" th:each="department: ${department}">[[${department.depname}]]</option>
+
+
+
+        </select>
+        <br>
+
+<!--br
+        <div class="form-group">
+            <label for="department">Department:</label>
+            <select name="department" id="department" class="custom-select">
+                <option value="">Select Department</option>
+                <option value="1">Computer Science</option>
+                <option value="2">Fine Arts</option>
+                <option value="3">Mathematics</option>
+                <option value="9">Java</option>
+                <option value="11">Big Bang Theory</option>
+            </select>
+        </div>-->
+
+        <input class="btn btn-primary" type="submit" value="Submit"/>
+
+    </form>
+
+</div>
+
+
+
+</body>
+</html>
