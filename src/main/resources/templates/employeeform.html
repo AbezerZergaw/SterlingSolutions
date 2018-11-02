@@ -48,11 +48,8 @@
         Department   <select th:field="*{department}">
 
         <option value="">Select Department</option>
-        <option value="1">Computer Science</option>
-        <option value="2">Fine Arts</option>
-        <option value="3">Mathematics</option>
-        <option value="9">Java</option>
-        <option th:value="${department.id}" th:each="department: ${department}">[[${department.depname}]]</option>
+
+        <option th:value="${department.id}" th:each="department: ${departments}">[[${department.depname}]]</option>
 
 
 

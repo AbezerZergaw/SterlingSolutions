@@ -36,7 +36,7 @@ public class MainController {
     public String addEmployee(Model model){
 
         model.addAttribute("employee" ,new Employee());
-        model.addAttribute("department", departmentRepo.findAll() );
+        model.addAttribute("departments", departmentRepo.findAll() );
         return "employeeform";
 
 
@@ -83,7 +83,7 @@ public class MainController {
     @RequestMapping("/employees")
     public String showEmployees(Model model){
         model.addAttribute("employees", employeeRepo.findAll());
-        model.addAttribute("department", departmentRepo.findAll());
+        model.addAttribute("departments", departmentRepo.findAll());
         return "listemployee";
 
     }
@@ -95,14 +95,20 @@ public class MainController {
 
         return "detailpage";
     }
-/*
+
     @RequestMapping("/update/{id}")
     public String updateEmployee(@PathVariable("id") long id, Model model){
-        model.addAttribute("employee", departmentRepo.findById(id).get());
+        model.addAttribute("employee", employeeRepo.findById(id).get());
         model.addAttribute("departments", departmentRepo.findAll());
 
         return "employeeform";
 
-    }*/
+    }
+    @RequestMapping("/delete/{id}")
+    public String delEmployee(@PathVariable("id") long id){
+
+        employeeRepo.deleteById(id);
+        return "homepage";
+    }
 
 }
