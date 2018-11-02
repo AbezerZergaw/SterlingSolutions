@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -62,7 +63,7 @@ public class MainController {
     }
 
     @PostMapping("/processdepartment")
-    public String saveDepartment(@ModelAttribute("employee") Department department, BindingResult result){
+    public String saveDepartment(@ModelAttribute("department") Department department, BindingResult result){
 
         if(result.hasErrors()){
             return "departmentform";
@@ -78,4 +79,30 @@ public class MainController {
 
         return "listdepartments";
     }
+
+    @RequestMapping("/employees")
+    public String showEmployees(Model model){
+        model.addAttribute("employees", employeeRepo.findAll());
+        model.addAttribute("department", departmentRepo.findAll());
+        return "listemployee";
+
+    }
+
+    @RequestMapping("/detail/{id}")
+    public String showDetail(@PathVariable("id") long id, Model model){
+
+        model.addAttribute("employee", employeeRepo.findById(id).get());
+
+        return "detailpage";
+    }
+/*
+    @RequestMapping("/update/{id}")
+    public String updateEmployee(@PathVariable("id") long id, Model model){
+        model.addAttribute("employee", departmentRepo.findById(id).get());
+        model.addAttribute("departments", departmentRepo.findAll());
+
+        return "employeeform";
+
+    }*/
+
 }

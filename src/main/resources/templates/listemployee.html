@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Employee</title>
@@ -29,6 +29,27 @@
         </li>
     </ul>
 </div>
+
+<table>
+    <tr>
+        <th>Employee Name</th>
+        <th>Title</th>
+        <th>Department</th>
+
+    </tr>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.empname}"></td>
+        <td th:text="${employee.jobtitle}"></td>
+        <td th:text="${employee.department.depname}"></td>
+
+        <td>
+            <a th:href="@{/update/{id}(id=${employee.id})}">Update</a>
+            <a th:href="@{/detail/{id}(id=${employee.id})}">Details</a>
+            <a th:href="@{/delete/{id}(id=${employee.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+
 
 </body>
 </html>
