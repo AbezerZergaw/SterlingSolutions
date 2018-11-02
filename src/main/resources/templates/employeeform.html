@@ -36,7 +36,7 @@
 
     <form   action="/processemployee" th:object="${employee}"
           method="post">
-
+<input type="hidden" th:field="*{id}">
       Name:  <input type="text" th:field="*{empname}"><br>
         <span th:if="${#fields.hasErrors('empname')}"
               th:errors="*{empname}"></span>
