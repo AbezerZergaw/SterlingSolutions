@@ -51,9 +51,10 @@
         <td th:text="${employee.department.depname}"></td>
 
         <td>
-            <a th:href="@{/update/{id}(id=${employee.id})}">Update</a>
-            <a th:href="@{/detail/{id}(id=${employee.id})}">Details</a>
-            <a th:href="@{/delete/{id}(id=${employee.id})}">Delete</a>
+
+            <a th:href="@{/update/{id}(id=${employee.id})}"  class="btn btn-success" role="button">Update</a>
+            <a th:href="@{/detail/{id}(id=${employee.id})}" class="btn btn-info" role="button">Details</a>
+            <a th:href="@{/delete/{id}(id=${employee.id})}" class="btn btn-danger" role="button">Delete</a>
         </td>
     </tr>
 </table>
